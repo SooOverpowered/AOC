@@ -67,4 +67,4 @@ def part2(data):
             if processed.endswith('s') == False:
                 processed += 's'
             search_dict[temp[0]][processed] = number
-    return searchbag('shiny gold bags',search_dict)-1
+    return searchbag('shiny gold bags', search_dict)-1
