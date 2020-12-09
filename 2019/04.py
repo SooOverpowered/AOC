@@ -1,20 +1,18 @@
 def process_num(num):
     digit_lst = [int(digit) for digit in str(num)]
     has_repeat_digit = False
-    increasing = True
     for i in range(5):
         if digit_lst[i] == digit_lst[i+1]:
             has_repeat_digit = True
         if digit_lst[i] > digit_lst[i+1]:
-            increasing = False
-    if has_repeat_digit and increasing:
+            return False
+    if has_repeat_digit:
         return True
     else:
         return False
 
 def process_num_2(num):
     digit_lst = [int(digit) for digit in str(num)]
-    has_repeat_digit = False
     digit_count={}
     for i in range(5):
         if digit_lst[i] > digit_lst[i+1]:
@@ -31,20 +29,20 @@ def process_num_2(num):
     return False
 
 
-def day4_1():
-    num_lst = [i for i in range(158126, 624575)]
+def part1(data):
+    input_range=[int(num) for num in data.rstrip().split('-')]
+    num_lst = [i for i in range(input_range[0], input_range[1]+1)]
     count = 0
     for num in num_lst:
         if process_num(num):
             count += 1
-    print(count)
+    return count
 
-def day4_2():
-    num_lst = [i for i in range(158126, 624575)]
+def part2(data):
+    input_range=[int(num) for num in data.rstrip().split('-')]
+    num_lst = [i for i in range(input_range[0], input_range[1]+1)]
     count = 0
     for num in num_lst:
         if process_num_2(num):
             count += 1
-    print(count)
-
-day4_2()
+    return count
