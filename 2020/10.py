@@ -15,10 +15,10 @@ def part1(data):
 def part2(data):
     lines = [int(num) for num in data.rstrip().split('\n')]
     lines = sorted(lines)
-    search_dict={0:1}
+    search_dict = {0: 1}
     for adapter in lines:
-        search_dict[adapter]=0
-        for i in range(1,4):
-            if adapter-i==0 or adapter-i in lines:
-                search_dict[adapter]+=search_dict[adapter-i]
+        search_dict[adapter] = 0
+        for i in range(1, 4):
+            if adapter-i == 0 or adapter-i in lines:
+                search_dict[adapter] += search_dict[adapter-i]
     return search_dict[lines[-1]]

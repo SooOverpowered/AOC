@@ -8,34 +8,34 @@ def part1(data):
     width = len(blocks[0])
     while flag:
         for y in range(height):
-            row=prev[y]
+            row = prev[y]
             for x in range(width):
-                if row[x]=='L':
-                    adjacent=[]
-                    for temp_row in range(y-1,y+2):
-                        if 0<=temp_row<height:
-                            for temp_col in range(x-1,x+2):
-                                if 0<=temp_col<width:
-                                    if prev[temp_row][temp_col]=='#':
+                if row[x] == 'L':
+                    adjacent = []
+                    for temp_row in range(y-1, y+2):
+                        if 0 <= temp_row < height:
+                            for temp_col in range(x-1, x+2):
+                                if 0 <= temp_col < width:
+                                    if prev[temp_row][temp_col] == '#':
                                         adjacent.append('#')
-                    if len(adjacent)==0:
-                        processed[y][x]='#'
-                elif row[x]=='#':
-                    adjacent=[]
-                    for temp_row in range(y-1,y+2):
-                        if 0<=temp_row<height:
-                            for temp_col in range(x-1,x+2):
-                                if 0<=temp_col<width:
-                                    if prev[temp_row][temp_col]=='#':
+                    if len(adjacent) == 0:
+                        processed[y][x] = '#'
+                elif row[x] == '#':
+                    adjacent = []
+                    for temp_row in range(y-1, y+2):
+                        if 0 <= temp_row < height:
+                            for temp_col in range(x-1, x+2):
+                                if 0 <= temp_col < width:
+                                    if prev[temp_row][temp_col] == '#':
                                         adjacent.append('#')
                     adjacent.remove('#')
-                    if len(adjacent)>=4:
-                        processed[y][x]='L'
-        if processed==prev:
-            flag=False
+                    if len(adjacent) >= 4:
+                        processed[y][x] = 'L'
+        if processed == prev:
+            flag = False
         else:
-            prev=[[i for i in row] for row in processed]
-    count=0
+            prev = [[i for i in row] for row in processed]
+    count = 0
     for row in processed:
         for seat in row:
             if seat == '#':
