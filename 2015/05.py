@@ -21,11 +21,30 @@ def check_repeat(string):
             return True
     return False
 
+def check_non_overlap_repeat(string):
+    for i in range(0,len(string)-3):
+        if string[i:i+2] in string[i+2:]:
+            return True
+    return False
+
+def check_symmetry(string):
+    for i in range(len(string)-2):
+        if string[i]==string[i+2]:
+            return True
+    return False
 
 def part1(data):
     lines = data.rstrip().split('\n')
     count = 0
     for line in lines:
         if check_string(line) and check_vowels(line) and check_repeat(line):
+            count += 1
+    return count
+
+def part2(data):
+    lines = data.rstrip().split('\n')
+    count = 0
+    for line in lines:
+        if check_non_overlap_repeat(line) and check_symmetry(line):
             count += 1
     return count
