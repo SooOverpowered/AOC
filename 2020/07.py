@@ -1,22 +1,4 @@
-def findbag(name, dictionary):
-    if 'no other bags' in dictionary[name].keys():
-        return False
-    elif 'shiny gold bags' in dictionary[name].keys():
-        return True
-    else:
-        output = False
-        for item in dictionary[name].keys():
-            if findbag(item, dictionary):
-                output = True
-                break
-        return output
-
-
-def searchbag(name, dictionary):
-    if 'no other bags' in dictionary[name].keys():
-        return 1
-    else:
-        return sum([num*searchbag(bag, dictionary) for bag, num in dictionary[name].items()])+1
+from functools import cache
 
 
 def part1(data):
@@ -40,8 +22,22 @@ def part1(data):
             if processed.endswith('s') == False:
                 processed += 's'
             search_dict[temp[0]][processed] = number
+
+    @cache
+    def findbag(name):
+        if 'no other bags' in search_dict[name].keys():
+            return False
+        elif 'shiny gold bags' in search_dict[name].keys():
+            return True
+        else:
+            output = False
+            for item in search_dict[name].keys():
+                if findbag(item):
+                    output = True
+                    break
+            return output
     for item in search_dict.keys():
-        if findbag(item, search_dict):
+        if findbag(item):
             count += 1
     return count
 
@@ -49,7 +45,6 @@ def part1(data):
 def part2(data):
     lines = data.rstrip('.\n').split('.\n')
     search_dict = {}
-    count = 0
     for line in lines:
         temp = line.split(' contain ')
         bags = temp[1].split(', ')
@@ -67,4 +62,11 @@ def part2(data):
             if processed.endswith('s') == False:
                 processed += 's'
             search_dict[temp[0]][processed] = number
-    return searchbag('shiny gold bags', search_dict)-1
+
+    @cache
+    def searchbag(name):
+        if 'no other bags' in search_dict[name].keys():
+            return 1
+        else:
+            return sum([num*searchbag(bag) for bag, num in search_dict[name].items()])+1
+    return searchbag('shiny gold bags')-1
