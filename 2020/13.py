@@ -19,11 +19,9 @@ def part2(data):
     lines= data.rstrip().split('\n')[1].split(',')
     lines=[(i,int(lines[i])) for i in range(len(lines)) if lines[i]!='x']
     jump=lines[0][1]
-    time_stamp=0
+    time=0
     for item in lines[1:]:
-        while (time_stamp+item[0])%item[1] != 0:
-            time_stamp+=jump
+        while (time+item[0])%item[1] != 0:
+            time+=jump
         jump*=item[1]
-    return time_stamp
-
-print(part2(open('13.txt','r').read()))
+    return time
