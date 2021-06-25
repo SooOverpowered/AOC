@@ -27,6 +27,3 @@ def part1(data):
 
 def part2(data):
     pass
-
-
-part1(open('20.txt', 'r').read())
