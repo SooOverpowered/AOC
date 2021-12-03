@@ -26,4 +26,4 @@ for i in range(1,27):
     runner.run(day=i)
     print('')
 '''
-runner.run(day=1)
+runner.run(day=3)
