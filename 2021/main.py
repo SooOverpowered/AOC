@@ -21,9 +21,5 @@ import runner
 # For a menu where users can select a day, use this
 # max_day is optional, remove it for no limit
 # day = runner.get_day(max_day=5)
-'''
-for i in range(1,27):
-    runner.run(day=i)
-    print('')
-'''
-runner.run(day=3)
+
+runner.run(day=4)

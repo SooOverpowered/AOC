@@ -24,7 +24,7 @@ def part2(data):
     lines = oxygen = co2 = data.split('\n')
     length = len(lines[0])
     for i in range(length):
-        if len(oxygen)>1:
+        if len(oxygen) > 1:
             total_oxygen = sum([int(line[i]) for line in oxygen])
             if total_oxygen >= len(oxygen)/2:
                 oxygen = [line for line in oxygen if line[i] == '1']
@@ -37,5 +37,3 @@ def part2(data):
             else:
                 co2 = [line for line in co2 if line[i] == '1']
     return int(oxygen[0], 2)*int(co2[0], 2)
-
-        
