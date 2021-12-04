@@ -5,7 +5,7 @@ class Board:
 
     @staticmethod
     def rotate_90(board):
-        list_tuple= list(zip(*board[::-1]))
+        list_tuple = list(zip(*board[::-1]))
         return [list(elem) for elem in list_tuple]
 
     def check(self):
@@ -53,15 +53,13 @@ def part2(data):
     numbers = list(map(int, lines[0].split(',')))
     boards = [Board(line) for line in lines[1::]]
     for num in numbers:
-        index=0
-        while index<len(boards):
-            board=boards[index]
+        index = 0
+        while index < len(boards):
+            board = boards[index]
             board.remove_num(num)
             if board.check():
-                if len(boards)==1:
+                if len(boards) == 1:
                     return board.score()*num
                 boards.pop(index)
             else:
-                index+=1
-            
-
+                index += 1
