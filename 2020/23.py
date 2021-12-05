@@ -1,71 +1,46 @@
+class Game:
+    def __init__(self, cups):
+        self.cups = cups
+        self.current = self.cups[0]
+        self.low = min(self.cups)
+        self.high = max(self.cups)
+        self.cups = dict(zip(self.cups, self.cups[1:]+ [self.cups[0]]))
+
+    def move(self):
+        temp = [self.cups[self.current]]
+        temp.append(self.cups[temp[0]])
+        temp.append(self.cups[temp[-1]])
+        dest = self.current -1
+        while dest < self.low or dest in temp:
+            dest -= 1
+            if dest < self.low:
+                dest = self.high
+        self.cups[self.current] = self.cups[temp[-1]]
+        self.cups[temp[-1]] = self.cups[dest]
+        self.cups[dest] = temp[0]
+        self.current = self.cups[self.current]
+
+
 def part1(data):
     line = data.rstrip()
     line = [int(i) for i in line]
-    current = 0
-
-    def adjust(pos, item, lst):
-        while lst[pos] != item:
-            lst.append(lst.pop(0))
-        return lst
+    game = Game(line)
     for i in range(100):
-        current_cup = line[current]
-        pickup = []
-        for j in range(1, 4):
-            if current+j >= len(line):
-                pickup.append(line[current+j-len(line)])
-            else:
-                pickup.append(line[current+j])
-        dest = line[current]-1
-        for item in pickup:
-            line.remove(item)
-        while dest not in line:
-            dest -= 1
-            if dest < min(line):
-                dest = max(line)
-        dest_index = line.index(dest)+1
-        for j in range(3):
-            line.insert(dest_index, pickup.pop(-1))
-        line = adjust(current, current_cup, line)
-        current += 1
-        if current == len(line):
-            current = 0
-    return line
-
+        game.move()
+    label = [game.cups[1]]
+    while label[-1] != 1:
+        label.append(game.cups[label[-1]])
+    return ''.join(map(str,label))
 
 def part2(data):
     line = data.rstrip()
     line = [int(i) for i in line]
-    line.extend(range(max(line)+1, 1000001))
-    current = 0
-
-    def adjust(pos, item, lst):
-        while lst[pos] != item:
-            lst.append(lst.pop(0))
-        return lst
+    line.extend(range(10, 1000001))
+    game = Game(line)
     for i in range(10000000):
-        current_cup = line[current]
-        pickup = []
-        for j in range(1, 4):
-            if current+j >= len(line):
-                pickup.append(line[current+j-len(line)])
-            else:
-                pickup.append(line[current+j])
-        dest = line[current]-1
-        for item in pickup:
-            line.remove(item)
-        while dest not in line:
-            dest -= 1
-            if dest < min(line):
-                dest = max(line)
-        dest_index = line.index(dest)+1
-        for j in range(3):
-            line.insert(dest_index, pickup.pop(-1))
-        line = adjust(current, current_cup, line)
-        current += 1
-        if current == len(line):
-            current = 0
-    cup1 = line.index(1)
-    return line[cup1+1]*line[cup1+2]
+        game.move()
+    return game.cups[1]*game.cups[game.cups[1]]
 
-
-print(part2(open('23.txt', 'r').read()))
+if __name__ == "__main__":
+    import runner
+    runner.run(day=23)
